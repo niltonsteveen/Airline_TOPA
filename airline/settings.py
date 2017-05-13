@@ -87,12 +87,11 @@ WSGI_APPLICATION = 'airline.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE' : 'django.db.backends.postgresql_psycopg2',
-        'NAME' : 'd9p3hrkks81nmn',
-        'USER' : 'lvyrrgqyqwybeh',
-        'PASSWORD' : '76d08bf6e7655382cc41fb35006a1eee65de2bff5d3d5e7f6bd352aa995f3a98',
-        'HOST' : 'ec2-23-23-220-163.compute-1.amazonaws.com',
+        'NAME' : 'dermm6f7oujgf6',
+        'USER' : 'ysgrqwvycmudnk',
+        'PASSWORD' : '6c32eee4101772cec5eeb51df8a735235214b976d11b4a39d7aad572825e796b',
+        'HOST' : 'ec2-184-73-199-72.compute-1.amazonaws.com',
         'PORT' : 5432,
-        'URI' : 'postgres://lvyrrgqyqwybeh:76d08bf6e7655382cc41fb35006a1eee65de2bff5d3d5e7f6bd352aa995f3a98@ec2-23-23-220-163.compute-1.amazonaws.com:5432/d9p3hrkks81nmn',
     }
 }
 
