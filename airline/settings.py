@@ -92,6 +92,7 @@ DATABASES = {
         'PASSWORD' : '76d08bf6e7655382cc41fb35006a1eee65de2bff5d3d5e7f6bd352aa995f3a98',
         'HOST' : 'ec2-23-23-220-163.compute-1.amazonaws.com',
         'PORT' : 5432,
+        'URI' : 'postgres://lvyrrgqyqwybeh:76d08bf6e7655382cc41fb35006a1eee65de2bff5d3d5e7f6bd352aa995f3a98@ec2-23-23-220-163.compute-1.amazonaws.com:5432/d9p3hrkks81nmn',
     }
 }
 
