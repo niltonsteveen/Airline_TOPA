@@ -10,7 +10,8 @@ from rest_framework.decorators import api_view
 def ejemplo(request):
 	if request.method == 'POST':
 		data=request.data
-		flights = Flight.objects.filter(flightCode=data['flightCode'])
+		flights = Flight.objects.filter(flightCode=data['flightCode'], origin=data['origin'], destination=data['destination'],
+			price=data['price'], currency=data['currency'], date=data['date'], roundTrip=data['roundTrip'], passengers=data['passengers'])
 		serializer = FlightSerializer(flights, many=True)
 		return Response(serializer.data)
 	elif request.method == 'GET':
