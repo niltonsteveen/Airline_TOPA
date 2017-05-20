@@ -12,7 +12,7 @@ def ejemplo(request):
 	if request.method == 'POST':
 		data=request.data
 		flights = Flight.objects.filter(flightCode=data['flightCode'], origin=data['origin'], destination=data['destination'],
-			price=data['price'], currency=data['currency'], date=data['date'], roundTrip=data['roundTrip'], passengers=data['passengers'])		
+			price=data['price'], currency=data['currency'], date=data['date'], passengers=data['passengers'])		
 		if data['roundTrip']:
 			flights = Flight.objects.filter(Q(flightCode=data['flightCode'], origin=data['origin'], destination=data['destination'],
 			price=data['price'], currency=data['currency'], date=data['date'], passengers=data['passengers']) | Q(origin=data['destination'], destination=data['origin']))
