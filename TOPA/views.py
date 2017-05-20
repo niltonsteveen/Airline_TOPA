@@ -18,9 +18,11 @@ def ejemplo(request):
 		if data['roundTrip']:
 			flights = Flight.objects.filter(Q(flightCode=data['flightCode'], origin=data['origin'], destination=data['destination'],
 			price=data['price'], currency=data['currency'], date=data['date'], passengers=data['passengers']) | Q(origin=data['destination'], destination=data['origin']))
-		serializer = '{ "airline":{"code":"2215","name":"TOPA", "thumbnail":"http://shmector.com/_ph/12/221844079.png"}, "results":'+FlightSerializer(flights, many=True)+'}'
-		res=json.dumps(serializer)
-		return Response(res)
+		serializer=FlightSerializer(flights, many=True)
+		datos=serializer.data
+		res = '{ "airline":{"code":"2215","name":"TOPA", "thumbnail":"http://shmector.com/_ph/12/221844079.png"}, "results":'+datos+'}'
+		res1=json.dumps(res)
+		return Response(res1)
 	elif request.method == 'GET':
 		flights = Flight.objects.all()
 		serializer = FlightSerializer(flights, many=True)
