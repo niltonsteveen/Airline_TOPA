@@ -15,7 +15,7 @@ def ejemplo(request):
 			price=data['price'], currency=data['currency'], date=data['date'], roundTrip=data['roundTrip'], passengers=data['passengers'])		
 		if data['roundTrip']:
 			flights = Flight.objects.filter(Q(flightCode=data['flightCode'], origin=data['origin'], destination=data['destination'],
-			price=data['price'], currency=data['currency'], date=data['date'], roundTrip=data['roundTrip'], passengers=data['passengers'])) | Q((origin=data['destination'], destination=data['origin']))
+			price=data['price'], currency=data['currency'], date=data['date'], roundTrip=data['roundTrip'], passengers=data['passengers'])) | Q(origin=data['destination'], destination=data['origin'])
 		serializer = FlightSerializer(flights, many=True)
 		return Response(serializer.data)
 	elif request.method == 'GET':
