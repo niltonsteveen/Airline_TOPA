@@ -8,7 +8,7 @@ class TestAirline(unittest.TestCase):
         self.assertEqual('foo'.upper(), 'FOO')
 
     def test_email(self):
-    	email="nilton"
+    	email="jtorresv232@gmail.com"
     	self.assertEqual('^[(a-z0-9\_\-\.)]+@[(a-z0-9\_\-\.)]+\.[(a-z)]{2,15}$', email.lower())
 
     #def test_post(self):
