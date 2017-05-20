@@ -20,11 +20,10 @@ def ejemplo(request):
 			flights = Flight.objects.filter(Q(flightCode=data['flightCode'], origin=data['origin'], destination=data['destination'],
 			price=data['price'], currency=data['currency'], date=data['date'], passengers=data['passengers']) | Q(origin=data['destination'], destination=data['origin']))
 		serializer=FlightSerializer(flights, many=True)
-		datos=serializer.data
-		datoserializado=serializers.serialize('json',datos)
-		res = '{ "airline":{"code":"2215","name":"TOPA", "thumbnail":"http://shmector.com/_ph/12/221844079.png"}, "results":'+datoserializado+'}'
-		res1=json.dumps(res)
-		return Response(res1)
+		
+		#res = '{ "airline":{"code":"2215","name":"TOPA", "thumbnail":"http://shmector.com/_ph/12/221844079.png"}, "results":'+datoserializado+'}'
+		#res1=json.dumps({ "airline":{"code":"2215","name":"TOPA", "thumbnail":"http://shmector.com/_ph/12/221844079.png"}, "results":res)
+		return Response({"airline":{"code":"2215","name":"TOPA", "thumbnail":"http://shmector.com/_ph/12/221844079.png"}, "results": serializer.data})
 	elif request.method == 'GET':
 		flights = Flight.objects.all()
 		serializer = FlightSerializer(flights, many=True)
