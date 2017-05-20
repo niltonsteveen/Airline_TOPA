@@ -14,11 +14,14 @@ import datetime
 def ejemplo(request):
 	if request.method == 'POST':
 		data=request.data
-
-
+		fecha=data['departureDate']
+		fechaStr=datetime.datetime.strptime(fecha, "%Y-%m-%d")
+		ano=fechaStr.year
+		mes=fechaStr.month
+		dia=fechaStr.day
 	#	lista=[{ 'airline':{'code':'2215','name':'TOPA', 'thumbnail':'http://shmector.com/_ph/12/221844079.png'}, }]
 		flights = Flight.objects.filter(origin=data['origin'], destination=data['destination'],
-			currency=data['currency'], date__startswith=datetime.datetime(data['departureDate']))		
+			currency=data['currency'], date__day=dia)		
 		if data['roundTrip']:
 			flights = Flight.objects.filter(Q(origin=data['origin'], destination=data['destination'],
 			currency=data['currency'], date=data['departureDate']) | Q(origin=data['destination'], destination=data['origin'], date=data['arrivalDate']))
