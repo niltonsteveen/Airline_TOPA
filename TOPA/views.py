@@ -14,11 +14,11 @@ def ejemplo(request):
 	if request.method == 'POST':
 		data=request.data
 	#	lista=[{ 'airline':{'code':'2215','name':'TOPA', 'thumbnail':'http://shmector.com/_ph/12/221844079.png'}, }]
-		flights = Flight.objects.filter(flightCode=data['flightCode'], origin=data['origin'], destination=data['destination'],
-			price=data['price'], currency=data['currency'], date=data['date'], passengers=data['passengers'])		
+		flights = Flight.objects.filter(origin=data['origin'], destination=data['destination'],
+			price=data['price'], currency=data['currency'], date=data['departureDate'])		
 		if data['roundTrip']:
-			flights = Flight.objects.filter(Q(flightCode=data['flightCode'], origin=data['origin'], destination=data['destination'],
-			price=data['price'], currency=data['currency'], date=data['date'], passengers=data['passengers']) | Q(origin=data['destination'], destination=data['origin']))
+			flights = Flight.objects.filter(Q(origin=data['origin'], destination=data['destination'],
+			price=data['price'], currency=data['currency'], date=data['departureDate']) | Q(origin=data['destination'], destination=data['origin'], date=data['arrivalDate']))
 		serializer=FlightSerializer(flights, many=True)
 		
 		#res = '{ "airline":{"code":"2215","name":"TOPA", "thumbnail":"http://shmector.com/_ph/12/221844079.png"}, "results":'+datoserializado+'}'
