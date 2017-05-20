@@ -18,7 +18,7 @@ def ejemplo(request):
 
 	#	lista=[{ 'airline':{'code':'2215','name':'TOPA', 'thumbnail':'http://shmector.com/_ph/12/221844079.png'}, }]
 		flights = Flight.objects.filter(origin=data['origin'], destination=data['destination'],
-			currency=data['currency'], date__contains=datetime.strptime(data['departureDate'], '%Y-%m-%d'))		
+			currency=data['currency'], date__contains=datetime(data['departureDate'], '%Y-%m-%d'))		
 		if data['roundTrip']:
 			flights = Flight.objects.filter(Q(origin=data['origin'], destination=data['destination'],
 			currency=data['currency'], date=data['departureDate']) | Q(origin=data['destination'], destination=data['origin'], date=data['arrivalDate']))
