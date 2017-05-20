@@ -17,7 +17,7 @@ class Flight(models.Model):
 	destination=models.CharField(max_length=30)
 	price=models.IntegerField()
 	currency=models.CharField(max_length=8)
-	date=models.DateField()
+	date=models.DateTimeField()
 	roundTrip=models.NullBooleanField()
 	airline=models.CharField(max_length=20)
 
