@@ -6,6 +6,7 @@ from .serializers import AirlineSerializer, FlightSerializer
 from rest_framework.decorators import api_view
 from django.db.models import Q
 import json
+from django.core import serializers
 # Create your views here.
 
 @api_view(['POST','GET'])
@@ -20,7 +21,8 @@ def ejemplo(request):
 			price=data['price'], currency=data['currency'], date=data['date'], passengers=data['passengers']) | Q(origin=data['destination'], destination=data['origin']))
 		serializer=FlightSerializer(flights, many=True)
 		datos=serializer.data
-		res = '{ "airline":{"code":"2215","name":"TOPA", "thumbnail":"http://shmector.com/_ph/12/221844079.png"}, "results":'+datos+'}'
+		datoserializado=serializers.serialize('json',datos)
+		res = '{ "airline":{"code":"2215","name":"TOPA", "thumbnail":"http://shmector.com/_ph/12/221844079.png"}, "results":'+datoserializado+'}'
 		res1=json.dumps(res)
 		return Response(res1)
 	elif request.method == 'GET':
