@@ -9,7 +9,7 @@ class TestAirline(unittest.TestCase):
 
     def test_email(self):
     	email="jtorresv232@gmail.com"
-    	self.assertEqual('^[(a-z0-9\_\-\.)]+@[(a-z0-9\_\-\.)]+\.[(a-z)]{2,15}$', email.lower())
+    	self.asserTrue(re.match('^[(a-z0-9\_\-\.)]+@[(a-z0-9\_\-\.)]+\.[(a-z)]{2,15}$', email.lower()))
 
     #def test_post(self):
     #	data=views.ejemplo
