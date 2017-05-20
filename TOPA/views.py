@@ -24,10 +24,10 @@ def ejemplo(request):
 			currency=data['currency'], date__day=dia, date__month=mes, date__year=ano)		
 		if data['roundTrip']:
 			fecha2=data['arrivalDate']
-			fechaStr=datetime.datetime.strptime(fecha2, "%Y-%m-%d")
-			ano2=fechaStr.year
-			mes2=fechaStr.month
-			dia2=fechaStr.day
+			fechaStr2=datetime.datetime.strptime(fecha2, "%Y-%m-%d")
+			ano2=fechaStr2.year
+			mes2=fechaStr2.month
+			dia2=fechaStr2.day
 			flights = Flight.objects.filter(Q(origin=data['origin'], destination=data['destination'],
 			currency=data['currency'], date__day=dia, date__month=mes, date__year=ano) | Q(origin=data['destination'], destination=data['origin'],date__day=dia2, date__month=mes2, date__year=ano2))
 		serializer=FlightSerializer(flights, many=True)
