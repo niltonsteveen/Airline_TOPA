@@ -12,6 +12,7 @@ class Airline(models.Model):
 
 class Flight(models.Model):
 	flightCode=models.CharField(max_length=15, primary_key=True)
+	passengers=models.IntegerField()
 	origin=models.CharField(max_length=30)
 	destination=models.CharField(max_length=30)
 	price=models.IntegerField()
