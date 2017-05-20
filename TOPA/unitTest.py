@@ -1,6 +1,6 @@
 import unittest
 import re
-from . import views
+from TOPA import views
 
 class TestAirline(unittest.TestCase):
 
