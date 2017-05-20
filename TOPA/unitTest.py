@@ -5,6 +5,7 @@ import re
 class TestAirline(unittest.TestCase):
 
     def test_upper(self):
+    	print prueba
         self.assertEqual('foo'.upper(), 'FOO')
 
     #def test_post(self):
