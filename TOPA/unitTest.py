@@ -1,9 +1,8 @@
 import unittest
 
-class TestStringMethods(unittest.TestCase):
+class TestAirline(unittest.TestCase):
 
     def test_upper(self):
-        print("hola")
         self.assertEqual('foo'.upper(), 'FOO')
 
 if __name__ == '__main__':
