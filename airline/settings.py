@@ -155,9 +155,3 @@ STATICFILES_DIRS = [
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
-
-import firebase_admin
-from firebase_admin import credentials
-
-cred = credentials.Certificate('serviceAccountKey.json')
-default_app = firebase_admin.initialize_app(cred)
