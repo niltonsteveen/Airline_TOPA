@@ -7,6 +7,8 @@ class TestAirline(unittest.TestCase):
     def test_upper(self):
         self.assertEqual('foo'.upper(), 'FOO')
 
+
+
     #def test_post(self):
     #	data=views.ejemplo
     #	print data.origin
