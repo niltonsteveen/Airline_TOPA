@@ -15,7 +15,7 @@ def ejemplo(request):
 	if request.method == 'POST':
 		data=request.data
 		fecha=data['departureDate']
-		fechaStr=datetime.datetime.strptime(fecha, "%Y-%m-%d")
+		fechaStr=datetime.datetime.strptime(fecha, "%d-%m-%Y")
 		ano=fechaStr.year
 		mes=fechaStr.month
 		dia=fechaStr.day
@@ -24,7 +24,7 @@ def ejemplo(request):
 			currency=data['currency'], date__day=dia, date__month=mes, date__year=ano)		
 		if data['roundTrip']:
 			fecha2=data['arrivalDate']
-			fechaStr2=datetime.datetime.strptime(fecha2, "%Y-%m-%d")
+			fechaStr2=datetime.datetime.strptime(fecha2, "%d-%m-%Y")
 			ano2=fechaStr2.year
 			mes2=fechaStr2.month
 			dia2=fechaStr2.day
