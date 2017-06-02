@@ -10,10 +10,6 @@ from django.core import serializers
 import datetime
 # Create your views here.
 
-def index(request):
-    template = loader.get_template('templates/index.html')
-    return HttpResponse(template.render(request))
-
 @api_view(['POST','GET'])
 def ejemplo(request):
 	if request.method == 'POST':
