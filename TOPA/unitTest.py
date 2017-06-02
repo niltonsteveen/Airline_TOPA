@@ -8,6 +8,9 @@ class TestAirline(unittest.TestCase):
         self.assertEqual('foo'.upper(), 'FOO')
 
 
+    def test_convertirFecha(array):
+    	for i in array:
+    		fecha=array[i]
 
     #def test_post(self):
     #	data=views.ejemplo

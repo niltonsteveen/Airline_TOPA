@@ -10,6 +10,10 @@ from django.core import serializers
 import datetime
 # Create your views here.
 
+def index(request):
+    template = loader.get_template('templates/index.html')
+    return HttpResponse(template.render(request))
+
 @api_view(['POST','GET'])
 def ejemplo(request):
 	if request.method == 'POST':
@@ -20,14 +24,14 @@ def ejemplo(request):
 		mes=fechaStr.month
 		dia=fechaStr.day
 	#	lista=[{ 'airline':{'code':'2215','name':'TOPA', 'thumbnail':'http://shmector.com/_ph/12/221844079.png'}, }]
-		flights = Flight.objects.filter(origin=data['origin'], destination=data['destination'],date__day=dia, date__month=mes, date__year=ano)		
+		flights = Flight.objects.filter(origin=data['origin'], destination=data['destination'],date__day=dia, date__month=mes, date__year=ano)
 		if data['roundTrip']:
 			fecha2=data['arrivalDate']
 			fechaStr2=datetime.datetime.strptime(fecha2, "%d-%m-%Y")
 			ano2=fechaStr2.year
 			mes2=fechaStr2.month
 			dia2=fechaStr2.day
-			flights = Flight.objects.filter(Q(origin=data['origin'],destination=data['destination'], date__day=dia, date__month=mes, date__year=ano) | Q(origin=data['destination'], destination=data['origin'],date__day=dia2, date__month=mes2, date__year=ano2))		
+			flights = Flight.objects.filter(Q(origin=data['origin'],destination=data['destination'], date__day=dia, date__month=mes, date__year=ano) | Q(origin=data['destination'], destination=data['origin'],date__day=dia2, date__month=mes2, date__year=ano2))
 		print(flights[0].passengers)
 		serializer=FlightSerializer(flights, many=True)
 		#res = '{ "airline":{"code":"2215","name":"TOPA", "thumbnail":"http://shmector.com/_ph/12/221844079.png"}, "results":'+datoserializado+'}'
