@@ -5,8 +5,42 @@
     <title></title>
   </head>
   <body>
-    <form >
-      <input type="submit" name="" value="login">
-    </form>
+    <button type="button" name="button" onclick="autenticar()"></button>
+
+  <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
+  <script>
+  // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyAgpcndOPW3Yk7pprbxZyQp1Oq_ln9Y0vw",
+      authDomain: "python-project-de5a9.firebaseapp.com",
+      databaseURL: "https://python-project-de5a9.firebaseio.com",
+      projectId: "python-project-de5a9",
+      storageBucket: "python-project-de5a9.appspot.com",
+      messagingSenderId: "317892618679"
+    };
+    firebase.initializeApp(config);
+  </script>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script type="text/javascript">
+    var provider = new firebase.auth.GoogleAuthProvider();
+    function autenticar(){
+      firebase.auth().signInWithPopup(provider).then(function(result) {
+        // This gives you a Google Access Token. You can use it to access the Google API.
+        var token = result.credential.accessToken;
+        // The signed-in user info.
+        var user = result.user;
+        // ...
+      }).catch(function(error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // The email of the user's account used.
+        var email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        var credential = error.credential;
+        // ...
+      });
+    }
+  </script>
   </body>
 </html>
