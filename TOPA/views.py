@@ -11,6 +11,7 @@ import datetime
 from django.views.generic.base import TemplateView
 import firebase_admin
 from firebase_admin import credentials
+import os.path
 # Create your views here.
 
 class InicioView(TemplateView):
@@ -18,7 +19,7 @@ class InicioView(TemplateView):
 
 @api_view(['POST', 'GET'])
 def setReserve(request):
-	cred = credentials.Certificate('Path/to/serviceAccount.json')
+	cred = credentials.Certificate(os.path.dirname(os.path.abspath(__file__)), "serviceAccount.json")
 	default_app = firebase_admin.initialize_app(cred)
 	if request.method == 'POST':
 		data=request.data
