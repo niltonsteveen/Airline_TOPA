@@ -7,6 +7,9 @@ class TestAirline(unittest.TestCase):
     def test_upper(self):
         self.assertEqual('foo'.upper(), 'FOO')
 
+	def test_upper(self):
+		self.assertEqual('foof'.upper(), 'FOOF')
+
 
     #def test_convertirFecha(array):
     	#for i in array:
