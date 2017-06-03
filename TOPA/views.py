@@ -22,7 +22,7 @@ def setReserve(request):
 	module_dir = os.path.dirname(__file__)  # get current directory
 	file_path = os.path.join(module_dir, 'serviceAccount.json')
 	cred = credentials.Certificate(file_path)
-	if firebase.apps.len == 0
+	if len(firebase.apps) == 0
 		default_app = firebase_admin.initialize_app(cred)
 	if request.method == 'POST':
 		data=request.data
