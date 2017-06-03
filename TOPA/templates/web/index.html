@@ -6,6 +6,9 @@
   </head>
   <body>
     <button type="button" name="button" onclick="autenticar()">INGRESAR</button>
+    <button type="button" name="button" onclick="retornaToken()">VER TOKEN</button>
+    <label id="label1">estado</label>
+
     <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
     <script>
     // Initialize Firebase
@@ -24,6 +27,15 @@
       function autenticar() {
         var provider = new firebase.auth.GoogleAuthProvider();
         firebase.auth().signInWithPopup(provider);
+        document.getElementById("label1").innerHTML=logueado;
+      }
+
+      function retornaToken(){
+        firebase.auth().currentUser.getToken(/* forceRefresh */ true).then(function(idToken) {
+          document.getElementById("label1").innerHTML=idToken;
+        }).catch(function(error) {
+          alert('error retornandolo');
+        });
       }
     </script>
   </body>

@@ -9,13 +9,30 @@ import json
 from django.core import serializers
 import datetime
 from django.views.generic.base import TemplateView
+import firebase_admin
+from firebase_admin import credentials
 # Create your views here.
 
 class InicioView(TemplateView):
 	template_name="web/index.html"
 
+"""@api_view(['POST'], ['GET'])
+def setReserve(request):
+	cred = credentials.Certificate('serviceAccount.json')
+	default_app = firebase_admin.initialize_app(cred)
+	if request.method == 'POST':
+		data=request.data
+		flightCode=data['flightCode']
+		passengers=data['passengers']
+		token=data['token']
+		# id_token comes from the client app (shown above)
+		decoded_token = auth.verify_id_token(token)
+		uid = decoded_token['uid']
+		return Response(data={"uid":uid})
+"""
+
 @api_view(['POST','GET'])
-def ejemplo(request):
+def getVuelos(request):
 	if request.method == 'POST':
 		data=request.data
 		fecha=data['departureDate']
