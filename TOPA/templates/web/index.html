@@ -29,14 +29,14 @@
         firebase.auth().signInWithPopup(provider);
         document.getElementById("label1").innerHTML=logueado en este momento;
       }
-
+/*
       function retornaToken(){
-        firebase.auth().currentUser.getToken(/* forceRefresh */ true).then(function(idToken) {
+       firebase.auth().currentUser.getToken( true).then(function(idToken) {
           document.getElementById("label1").innerHTML=idToken;
         }).catch(function(error) {
           alert('error retornandolo');
         });
-      }
+      }*/
     </script>
   </body>
 </html>
