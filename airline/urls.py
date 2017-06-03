@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from TOPA.views import InicioView
-from . import views
+from TOPA import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
