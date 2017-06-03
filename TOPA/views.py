@@ -16,7 +16,7 @@ from firebase_admin import credentials
 class InicioView(TemplateView):
 	template_name="web/index.html"
 
-@api_view(['POST'], ['GET'])
+@api_view(['POST', 'GET'])
 def setReserve(request):
 	cred = credentials.Certificate('/serviceAccount.json')
 	default_app = firebase_admin.initialize_app(cred)
