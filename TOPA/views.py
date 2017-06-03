@@ -29,7 +29,7 @@ def setReserve(request):
 		passengers=data['passengers']
 		token=data['token']
 		# id_token comes from the client app (shown above)
-		decoded_token = admin.auth.verify_id_token(token)
+		decoded_token = firebase.auth.verify_id_token(token)
 		uid = decoded_token['uid']
 		return Response(data={"uid":uid})
 	elif request.method == 'GET':
