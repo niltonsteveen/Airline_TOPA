@@ -19,7 +19,9 @@ class InicioView(TemplateView):
 
 @api_view(['POST', 'GET'])
 def setReserve(request):
-	cred = credentials.Certificate('{{STATIC_URL}}/serviceAccount.json')
+	module_dir = os.path.dirname(__file__)  # get current directory
+	file_path = os.path.join(module_dir, 'serviceAccount.json')
+	cred = credentials.Certificate(file_path)
 	default_app = firebase_admin.initialize_app(cred)
 	if request.method == 'POST':
 		data=request.data
