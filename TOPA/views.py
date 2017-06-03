@@ -30,6 +30,7 @@ def setReserve(request):
 		flightCode=data['flightCode']
 		passengers=data['passengers']
 		token=data['token']
+		token2=data['token']
 		# id_token comes from the client app (shown above)
 		decoded_token = auth.verify_id_token(token)
 		uid = decoded_token['uid']
