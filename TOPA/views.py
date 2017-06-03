@@ -16,7 +16,7 @@ from firebase_admin import credentials
 class InicioView(TemplateView):
 	template_name="web/index.html"
 
-"""@api_view(['POST'], ['GET'])
+@api_view(['POST'], ['GET'])
 def setReserve(request):
 	cred = credentials.Certificate('serviceAccount.json')
 	default_app = firebase_admin.initialize_app(cred)
@@ -29,7 +29,10 @@ def setReserve(request):
 		decoded_token = auth.verify_id_token(token)
 		uid = decoded_token['uid']
 		return Response(data={"uid":uid})
-"""
+	elif request.method == 'GET':
+		flights = Flight.objects.all()
+		serializer = FlightSerializer(flights, many=True)
+		return Response(serializer.data)
 
 @api_view(['POST','GET'])
 def ejemplo(request):
