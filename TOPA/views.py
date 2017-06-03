@@ -8,7 +8,11 @@ from django.db.models import Q
 import json
 from django.core import serializers
 import datetime
+from django.views.generic.base import TemplateView
 # Create your views here.
+
+class InicioView(TemplateView):
+	inicio="TOPA/index.html"
 
 @api_view(['POST','GET'])
 def ejemplo(request):
