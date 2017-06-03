@@ -32,7 +32,7 @@ def setReserve(request):
 """
 
 @api_view(['POST','GET'])
-def getVuelos(request):
+def ejemplo(request):
 	if request.method == 'POST':
 		data=request.data
 		fecha=data['departureDate']
