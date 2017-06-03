@@ -12,7 +12,7 @@ from django.views.generic.base import TemplateView
 # Create your views here.
 
 class InicioView(TemplateView):
-	template_name="TOPA/index.html"
+	template_name="index.html"
 
 @api_view(['POST','GET'])
 def ejemplo(request):
