@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from TOPA.views import InicioView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^Search/', include('TOPA.urls')),
+    url(r'^inicio/', InicioView.as_view(), name="inicio"),
 ]
