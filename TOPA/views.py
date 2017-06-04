@@ -50,6 +50,7 @@ class opciones:
 				resta= passengers2 - passengers
 				if resta >= 0:
 					msg='R'
+					flight[0].update(passengers=resta)
 				else:
 					msg= 'I'
 			else:
