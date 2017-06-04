@@ -93,7 +93,6 @@ class opciones:
 					result+= str(serializer.data)
 				else:
 					result+= str(serializer.data) + ','
-			result+=']'
 			return Response(data={"airline":{"code":"2215","name":"TOPA", "thumbnail":"http://shmector.com/_ph/12/221844079.png"}, "results": result})
 
 @api_view(['POST','GET'])
