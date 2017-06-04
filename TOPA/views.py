@@ -29,7 +29,7 @@ class opciones:
 		return default_app
 
 	@api_view(['POST', 'GET'])
-	def setReserve(self, request):
+	def setReserve(request, self):
 		if request.method == 'POST':
 			if(self.default_app == None):
 				module_dir = os.path.dirname(__file__)  # get current directory
