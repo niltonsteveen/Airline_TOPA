@@ -125,6 +125,6 @@ def ejemplo(request):
 		flights = Flight.objects.all()
 		serializer = FlightSerializer(flights, many=True)
 		print("----------------------------------------")
-		print(serializer)
+		print(serializer[0].data)
 		print("----------------------------------------")
 		return Response(serializer.data)
