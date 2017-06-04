@@ -23,12 +23,31 @@ class InicioView(TemplateView):
 	template_name="web/index.html"
 
 class opciones:
-	default_app = None;
+	default_app = None
+	config = {
+		"apiKey": "AIzaSyAgpcndOPW3Yk7pprbxZyQp1Oq_ln9Y0vw",
+		"authDomain": "python-project-de5a9.firebaseapp.com",
+		"databaseURL": "https://python-project-de5a9.firebaseio.com/",
+		"storageBucket": "python-project-de5a9.appspot.com"
+	}
+
+	firebase=None
+	db = None
 	def setCredencial(arg):
 		opciones.default_app=arg
 
 	def getCredencial():
 		return default_app
+
+	def setConfigDatabase():
+		opciones.firebase = pyrebase.initialize_app(config)
+
+	def setDataBase():
+		opciones.db=opciones.firebase.database()
+
+	def getDataBase():
+		return opciones.db
+
 
 	@api_view(['POST', 'GET'])
 	def setReserve(request):
@@ -52,6 +71,8 @@ class opciones:
 				resta= passengers2 - passengers
 				if resta >= 0:
 					msg='R'
+				#	flight[0].passengers=passengers
+
 					Flight.objects.filter(flightCode=code).update(passengers=resta)
 				else:
 					msg= 'I'
@@ -60,6 +81,8 @@ class opciones:
 			return Response(data={"message":msg})
 		elif request.method == 'GET' :
 			return Response(data={"msg":"se hizo una petición get ."})
+
+
 
 	@api_view(['GET'])
 	def getReserves(request, token):
@@ -73,20 +96,13 @@ class opciones:
 			# id_token comes from the client app (shown above)
 			decoded_token = auth.verify_id_token(token)
 			uid = decoded_token['uid']
-			config = {
-				"apiKey": "AIzaSyAgpcndOPW3Yk7pprbxZyQp1Oq_ln9Y0vw",
-				"authDomain": "python-project-de5a9.firebaseapp.com",
-				"databaseURL": "https://python-project-de5a9.firebaseio.com/",
-				"storageBucket": "python-project-de5a9.appspot.com"
-			}
-			firebase = pyrebase.initialize_app(config)
-			db = firebase.database()
-			obj=db.child("users").child(uid).child("vuelos").get()
+			opciones.setConfigDatabase()
+			obj=opciones.getDataBase().child("users").child(uid).child("vuelos").get()
 			arregloJson=obj.val()
 			return Response(data={"airline":{"code":"2215","name":"TOPA", "thumbnail":"http://shmector.com/_ph/12/221844079.png"}, "results": arregloJson})
 
 @api_view(['POST','GET'])
-def ejemplo(request):
+def allFlights(request):
 	if request.method == 'POST':
 		data=request.data
 		fecha=data['departureDate']
