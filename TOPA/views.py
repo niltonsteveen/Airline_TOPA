@@ -31,12 +31,12 @@ class opciones:
 	@api_view(['POST', 'GET'])
 	def setReserve(request):
 		if request.method == 'POST':
-			if(self.default_app == None):
+			if(default_app == None):
 				module_dir = os.path.dirname(__file__)  # get current directory
 				file_path = os.path.join(module_dir, 'serviceAccount.json')
 				cred = credentials.Certificate(file_path)
 				dfl=firebase_admin.initialize_app(cred)
-				self.setCredencial(dfl)
+				setCredencial(dfl)
 				data=request.data
 				flightCode=data['flightCode']
 				passengers=data['passengers']
