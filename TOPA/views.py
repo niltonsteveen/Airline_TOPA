@@ -29,7 +29,7 @@ class opciones:
 
 
 	@api_view(['GET'])
-	def ensayo(request):
+	def ensayo(request, token):
 		if request.method == 'GET':
 			module_dir = os.path.dirname(__file__)  # get current directory
 			file_path = os.path.join(module_dir, 'serviceAccount.json')
@@ -37,13 +37,20 @@ class opciones:
 				"apiKey": "AIzaSyAgpcndOPW3Yk7pprbxZyQp1Oq_ln9Y0vw",
 				"authDomain": "python-project-de5a9.firebaseapp.com",
 				"databaseURL": "https://python-project-de5a9.firebaseio.com/",
-				"storageBucket": "python-project-de5a9.appspot.com"				
+				"storageBucket": "python-project-de5a9.appspot.com"
 			}
+
+			"""{
+  "rules": {
+    ".read": "auth != null",
+    ".write": "auth != null"
+  }
+}"""
 			firebase = pyrebase.initialize_app(config)
 			db = firebase.database()
-			data = {"name": "Mortimer 'Morty' Smith"}
-			db.child("users").push(data)
-			return Response(data={"msg":"se hizo una petición get ."})
+			obj=db.child("users").child("fdsfdsafdsafdsflmkfsdafa")
+			lenn=len(obj)
+			return Response(data={"msg": lenn})
 
 	@api_view(['POST', 'GET'])
 	def setReserve(request):
