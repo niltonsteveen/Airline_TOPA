@@ -88,7 +88,7 @@ class opciones:
 			for i in range(lenArray):
 				numero=int(arregloJson[i])
 				flight=Flight.objects.filter(flightCode=numero)
-				serializer=FlightSerializer(flight)
+				serializer=FlightSerializer(flight, many=True)
 				if i == lenArray-1:
 					result+= serializer.data
 				else:
