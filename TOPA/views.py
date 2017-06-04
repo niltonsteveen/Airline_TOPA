@@ -73,8 +73,7 @@ class opciones:
 			firebase = pyrebase.initialize_app(config)
 			db = firebase.database()
 			obj=db.child("users").child("fdsfdsafdsafdsflmkfsdafa")
-			lenn=len(obj)
-			return Response(data={"msg":lenn})
+			return Response(data={"msg":obj})
 
 @api_view(['POST','GET'])
 def ejemplo(request):
