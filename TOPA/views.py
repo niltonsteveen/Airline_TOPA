@@ -20,11 +20,11 @@ class InicioView(TemplateView):
 
 @api_view(['POST'])
 def setReserve(request):
+	module_dir = os.path.dirname(__file__)  # get current directory
+	file_path = os.path.join(module_dir, 'serviceAccount.json')
+	cred = credentials.Certificate(file_path)
+	default_app=firebase_admin.initialize_app(cred)
 	if request.method == 'POST':
-		module_dir = os.path.dirname(__file__)  # get current directory
-		file_path = os.path.join(module_dir, 'serviceAccount.json')
-		cred = credentials.Certificate(file_path)
-		default_app=firebase_admin.initialize_app(cred)
 		data=request.data
 		flightCode=data['flightCode']
 		passengers=data['passengers']
