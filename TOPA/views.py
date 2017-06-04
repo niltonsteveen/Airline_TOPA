@@ -52,12 +52,9 @@ def setReserve(request):
 		# id_token comes from the client app (shown above)
 		decoded_token = auth.verify_id_token(token)
 		uid = decoded_token['uid']
+		email1=decoded_token['email']
 		email=decoded_token['email']
 		return Response(data={"uid":email})
-	elif request.method == 'GET':
-		flights = Flight.objects.all()
-		serializer = FlightSerializer(flights, many=True)
-		return Response(serializer.data)
 
 @api_view(['POST','GET'])
 def ejemplo(request):
