@@ -82,7 +82,7 @@ class opciones:
 					obj=opciones.getDataBase().child("users").child(uid).child("vuelos").get()
 					arregloJson=obj.val()
 					print("---------------************************")
-					print(arregloJson)
+					print(arregloJson[0])
 					opciones.getDataBase().child("users").child(uid).set(arregloJson)
 					Flight.objects.filter(flightCode=code).update(passengers=resta)
 				else:
