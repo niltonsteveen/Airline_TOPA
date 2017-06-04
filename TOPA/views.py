@@ -87,6 +87,7 @@ class opciones:
 			numero=int(arregloJson[0])
 			flight=Flight.objects.filter(flightCode=numero)
 			serializer=FlightSerializer(flight, many=True)
+			serializer.
 			result= ''
 			"""for i in range(lenArray):
 				numero=int(arregloJson[i])
@@ -124,4 +125,7 @@ def ejemplo(request):
 	elif request.method == 'GET':
 		flights = Flight.objects.all()
 		serializer = FlightSerializer(flights, many=True)
+		print("----------------------------------------")
+		print(serializer)
+		print("----------------------------------------")
 		return Response(serializer.data)
