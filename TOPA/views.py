@@ -79,7 +79,10 @@ class opciones:
 					serializer=FlightSerializer(flight, many=True)
 					opciones.setConfigDatabase()
 					opciones.setDataBase()
-					opciones.getDataBase().child("users").child(uid).set(serializer.data)
+					obj=opciones.getDataBase().child("users").child(uid).child("vuelos").get()
+					arregloJson=obj.val()
+					arregloJson.append(serializer.data)
+					opciones.getDataBase().child("users").child(uid).set(arregloJson)
 					Flight.objects.filter(flightCode=code).update(passengers=resta)
 				else:
 					msg= 'I'
