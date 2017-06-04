@@ -38,14 +38,23 @@ class opciones:
 				dfl=firebase_admin.initialize_app(cred)
 				opciones.setCredencial(dfl)
 			data=request.data
-			flightCode=data['flightCode']
+			code=data['flightCode']
 			passengers=data['passengers']
 			token=data['token']
 			# id_token comes from the client app (shown above)
 			decoded_token = auth.verify_id_token(token)
-			uid = decoded_token['uid']
-			email=decoded_token['email']
-			return Response(data={"uid":email})
+			flight=Flight.objects.get(flightCode=code)
+			msg = None;
+			if len(flight) > 0:
+				passengers2 = flight.passengers
+				resta= passengers2 - passengers
+				if resta >= 0:
+					msg='R'
+				else:
+					msg= 'I'
+			else:
+				msg = 'NF'
+			return Response(data={"message":msg})
 		elif request.method == 'GET' :
 			return Response(data={"msg":"se hizo una petición get ."})
 
