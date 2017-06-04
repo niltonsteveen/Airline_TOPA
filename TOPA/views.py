@@ -97,6 +97,7 @@ class opciones:
 			decoded_token = auth.verify_id_token(token)
 			uid = decoded_token['uid']
 			opciones.setConfigDatabase()
+			opciones.setDataBase()
 			obj=opciones.getDataBase().child("users").child(uid).child("vuelos").get()
 			arregloJson=obj.val()
 			return Response(data={"airline":{"code":"2215","name":"TOPA", "thumbnail":"http://shmector.com/_ph/12/221844079.png"}, "results": arregloJson})
