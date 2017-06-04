@@ -85,8 +85,8 @@ class opciones:
 			arregloJson=obj.val()
 			lenArray=len(arregloJson)
 			numero=int(arregloJson[0])
-			flight=Flight.objects.filter(flightCode=numero)
-			serializer=FlightSerializer(flight, many=True)
+			#flight=Flight.objects.filter(flightCode=numero)
+			serializer=FlightSerializer(<QuerySet[<Flight:7>,<Flight:6>]>, many=True)
 			result= ''
 			"""for i in range(lenArray):
 				numero=int(arregloJson[i])
