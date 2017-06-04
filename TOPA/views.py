@@ -36,7 +36,7 @@ class Singleton(object):
 		self.default_app=arg
 
 
-@api_view(['POST', 'GET'])
+@api_view(['POST'])
 def setReserve(request):
 	if request.method == 'POST':
 		module_dir = os.path.dirname(__file__)  # get current directory
