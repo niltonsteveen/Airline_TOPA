@@ -60,17 +60,14 @@ class opciones:
 	def setReserve(request):
 		if request.method == 'POST':
 			if(opciones.default_app == None):
-				module_dir = os.path.dirname(__file__)  # get current directory
-				file_path = os.path.join(module_dir, 'serviceAccount.json')
-				cred = credentials.Certificate(file_path)
-				dfl=firebase_admin.initialize_app(cred)
-				opciones.setCredencial(dfl)
+				opciones.loadService()
 			data=request.data
 			code=data['flightCode']
 			passengers=data['passengers']
 			token=data['token']
 			# id_token comes from the client app (shown above)
 			decoded_token = auth.verify_id_token(token)
+			uid = decoded_token['uid']
 			flight=Flight.objects.filter(flightCode=code)
 			msg = None;
 			if len(flight) > 0:
@@ -78,8 +75,11 @@ class opciones:
 				resta= passengers2 - passengers
 				if resta >= 0:
 					msg='R'
-				#	flight[0].passengers=passengers
-
+					flight[0].passengers=passengers
+					serializer=FlightSerializer(flight, many=True)
+					opciones.setConfigDatabase()
+					opciones.setDataBase()
+					opciones.getDataBase().child("users").set(serializer.data)
 					Flight.objects.filter(flightCode=code).update(passengers=resta)
 				else:
 					msg= 'I'
