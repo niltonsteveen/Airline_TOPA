@@ -81,7 +81,8 @@ class opciones:
 					opciones.setDataBase()
 					obj=opciones.getDataBase().child("users").child(uid).child("vuelos").get()
 					arregloJson=obj.val()
-					arregloJson.append(serializer.data)
+					print("-----------------------------------------")
+					print(arregloJson)
 					opciones.getDataBase().child("users").child(uid).set(arregloJson)
 					Flight.objects.filter(flightCode=code).update(passengers=resta)
 				else:
@@ -126,7 +127,6 @@ def allFlights(request):
 			mes2=fechaStr2.month
 			dia2=fechaStr2.day
 			flights = Flight.objects.filter(Q(origin=data['origin'],destination=data['destination'], date__day=dia, date__month=mes, date__year=ano) | Q(origin=data['destination'], destination=data['origin'],date__day=dia2, date__month=mes2, date__year=ano2))
-		print(flights[0].passengers)
 		serializer=FlightSerializer(flights, many=True)
 		#res = '{ "airline":{"code":"2215","name":"TOPA", "thumbnail":"http://shmector.com/_ph/12/221844079.png"}, "results":'+datoserializado+'}'
 		#res1=json.dumps({ "airline":{"code":"2215","name":"TOPA", "thumbnail":"http://shmector.com/_ph/12/221844079.png"}, "results":res)
@@ -134,7 +134,4 @@ def allFlights(request):
 	elif request.method == 'GET':
 		flights = Flight.objects.all()
 		serializer = FlightSerializer(flights, many=True)
-		print("----------------------------------------")
-		print(serializer.data)
-		print("----------------------------------------")
 		return Response(serializer.data)
