@@ -13,6 +13,7 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import auth
 import os.path
+import pyrebase
 # Create your views here.
 
 class InicioView(TemplateView):
@@ -27,6 +28,46 @@ class opciones:
 
 	def getCredencial():
 		return default_app
+
+
+	@api_view(['GET'])
+	def ensayo(request):
+		if request.method=='GET':
+			module_dir = os.path.dirname(__file__)  # get current directory
+			file_path = os.path.join(module_dir, 'serviceAccount.json')
+			config = {
+				{
+				  "apiKey": "AIzaSyAgpcndOPW3Yk7pprbxZyQp1Oq_ln9Y0vw",
+				  "authDomain": "python-project-de5a9.firebaseapp.com",
+				  "databaseURL": "https://python-project-de5a9.firebaseio.com/",
+				  "storageBucket": "python-project-de5a9.appspot.com",
+				  "serviceAccount": file_path
+				}
+			}
+			firebase = pyrebase.initialize_app(config)
+			db = firebase.database()
+			data = {"name": "Mortimer 'Morty' Smith"}
+			db.child("users").push(data)
+			return Response(data={"msg":"se hizo una petición get ."})
+
+"""	@api_view(['GET'])
+	def allReserves(request, token):
+		if request.method == 'GET':
+			if(opciones.default_app == None):
+				module_dir = os.path.dirname(__file__)  # get current directory
+				file_path = os.path.join(module_dir, 'serviceAccount.json')
+				cred = credentials.Certificate(file_path)
+				dfl=firebase_admin.initialize_app(cred)
+				opciones.setCredencial(dfl)
+			data=request.data
+			code=data['flightCode']
+			passengers=data['passengers']
+			token=data['token']
+			# id_token comes from the client app (shown above)
+			decoded_token = auth.verify_id_token(token)"""
+
+
+
 
 	@api_view(['POST', 'GET'])
 	def setReserve(request):
