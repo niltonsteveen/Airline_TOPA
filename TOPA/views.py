@@ -43,10 +43,10 @@ class opciones:
 			token=data['token']
 			# id_token comes from the client app (shown above)
 			decoded_token = auth.verify_id_token(token)
-			flight=Flight.objects.get(flightCode=code)
+			flight=Flight.objects.filter(flightCode=code)
 			msg = None;
 			if len(flight) > 0:
-				passengers2 = flight.passengers
+				passengers2 = flight[0].passengers
 				resta= passengers2 - passengers
 				if resta >= 0:
 					msg='R'
