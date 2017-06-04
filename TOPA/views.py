@@ -31,7 +31,7 @@ class opciones:
 	@api_view(['POST', 'GET'])
 	def setReserve(request):
 		if request.method == 'POST':
-			if(default_app == None):
+			if(opciones.default_app == None):
 				module_dir = os.path.dirname(__file__)  # get current directory
 				file_path = os.path.join(module_dir, 'serviceAccount.json')
 				cred = credentials.Certificate(file_path)
