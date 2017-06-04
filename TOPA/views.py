@@ -34,20 +34,6 @@ class opciones2(generics.ListAPIView):
 	def get_queryset(self):
 		token=self.request.query_params.get('token', None)
 		return Response(data={"msg": "hola"})
-			"""	if request.method == 'GET':
-					module_dir = os.path.dirname(__file__)  # get current directory
-					file_path = os.path.join(module_dir, 'serviceAccount.json')
-					config = {
-						"apiKey": "AIzaSyAgpcndOPW3Yk7pprbxZyQp1Oq_ln9Y0vw",
-						"authDomain": "python-project-de5a9.firebaseapp.com",
-						"databaseURL": "https://python-project-de5a9.firebaseio.com/",
-						"storageBucket": "python-project-de5a9.appspot.com"
-					}
-
-					firebase = pyrebase.initialize_app(config)
-					db = firebase.database()
-					obj=db.child("users").child("fdsfdsafdsafdsflmkfsdafa")
-					lenn=len(obj)"""
 
 
 	@api_view(['POST', 'GET'])
