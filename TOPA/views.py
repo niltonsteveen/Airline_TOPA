@@ -22,8 +22,8 @@ class opciones:
 
 	default_app = None;
 
-	def setCredencial(self, arg):
-		self.default_app=arg
+	def setCredencial(arg):
+		opciones.default_app=arg
 
 	def getCredencial():
 		return default_app
