@@ -83,7 +83,7 @@ class opciones:
 			db = firebase.database()
 			obj=db.child("users").child(uid).get()
 			arregloJson=obj.val()
-			#arreglo=json.loads(arregloJson)
+			arreglo=json.loads(arregloJson)
 			#datos=arreglo['vuelos'][0]
 			return Response(data={"msg":arregloJson})
 
