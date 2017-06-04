@@ -36,7 +36,7 @@ class opciones:
 				file_path = os.path.join(module_dir, 'serviceAccount.json')
 				cred = credentials.Certificate(file_path)
 				dfl=firebase_admin.initialize_app(cred)
-				setCredencial(dfl)
+				opciones.setCredencial(dfl)
 				data=request.data
 				flightCode=data['flightCode']
 				passengers=data['passengers']
