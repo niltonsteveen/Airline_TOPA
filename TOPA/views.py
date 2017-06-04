@@ -22,7 +22,7 @@ class Singleton(object):
 	instance = None
 	@classmethod
 	def Instance(cls):
-		if cls.instance=None:
+		if cls.instance==None:
 			cls.instance = Singleton()
 		return cls.instance
 
