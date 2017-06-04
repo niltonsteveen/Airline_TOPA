@@ -48,6 +48,13 @@ class opciones:
 	def getDataBase():
 		return opciones.db
 
+	def loadService():
+		module_dir = os.path.dirname(__file__)  # get current directory
+		file_path = os.path.join(module_dir, 'serviceAccount.json')
+		cred = credentials.Certificate(file_path)
+		dfl=firebase_admin.initialize_app(cred)
+		opciones.setCredencial(dfl)
+
 
 	@api_view(['POST', 'GET'])
 	def setReserve(request):
@@ -88,11 +95,7 @@ class opciones:
 	def getReserves(request, token):
 		if request.method == 'GET':
 			if(opciones.default_app == None):
-				module_dir = os.path.dirname(__file__)  # get current directory
-				file_path = os.path.join(module_dir, 'serviceAccount.json')
-				cred = credentials.Certificate(file_path)
-				dfl=firebase_admin.initialize_app(cred)
-				opciones.setCredencial(dfl)
+				opciones.loadService()
 			# id_token comes from the client app (shown above)
 			decoded_token = auth.verify_id_token(token)
 			uid = decoded_token['uid']
