@@ -81,6 +81,7 @@ class opciones:
 					opciones.setDataBase()
 					obj=opciones.getDataBase().child("users").child(uid).child("vuelos").get()
 					arregloJson=obj.val()
+					arregloJson.append(serializer.data)
 					print("---------------************************")
 					print(arregloJson)
 					#opciones.getDataBase().child("users").child(uid).set(arregloJson)
