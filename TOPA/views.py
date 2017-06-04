@@ -84,7 +84,7 @@ class opciones:
 			obj=db.child("users").child(uid).child("vuelos").get()
 			arregloJson=obj.val()
 			lenArray=len(arregloJson)
-			result= '['
+			result= None
 			for i in range(lenArray):
 				numero=int(arregloJson[i])
 				flight=Flight.objects.filter(flightCode=numero)
