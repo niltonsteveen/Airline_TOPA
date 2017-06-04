@@ -14,6 +14,7 @@ from firebase_admin import credentials
 from firebase_admin import auth
 import os.path
 from pyrebase import pyrebase
+from rest_framework import generics
 # Create your views here.
 
 class InicioView(TemplateView):
@@ -28,29 +29,26 @@ class opciones:
 		return default_app
 
 
-	@api_view(['GET'])
-	def ensayo(request, token):
-		if request.method == 'GET':
-			module_dir = os.path.dirname(__file__)  # get current directory
-			file_path = os.path.join(module_dir, 'serviceAccount.json')
-			config = {
-				"apiKey": "AIzaSyAgpcndOPW3Yk7pprbxZyQp1Oq_ln9Y0vw",
-				"authDomain": "python-project-de5a9.firebaseapp.com",
-				"databaseURL": "https://python-project-de5a9.firebaseio.com/",
-				"storageBucket": "python-project-de5a9.appspot.com"
-			}
+class opciones2(generics.ListAPIView)
+	serializer_class = FlightSerializer
+	def get_queryset(self):
+		token=self.request.query_params.get('token', None)
+		return Response(data={"msg": "hola"})
+			"""	if request.method == 'GET':
+					module_dir = os.path.dirname(__file__)  # get current directory
+					file_path = os.path.join(module_dir, 'serviceAccount.json')
+					config = {
+						"apiKey": "AIzaSyAgpcndOPW3Yk7pprbxZyQp1Oq_ln9Y0vw",
+						"authDomain": "python-project-de5a9.firebaseapp.com",
+						"databaseURL": "https://python-project-de5a9.firebaseio.com/",
+						"storageBucket": "python-project-de5a9.appspot.com"
+					}
 
-			"""{
-  "rules": {
-    ".read": "auth != null",
-    ".write": "auth != null"
-  }
-}"""
-			firebase = pyrebase.initialize_app(config)
-			db = firebase.database()
-			obj=db.child("users").child("fdsfdsafdsafdsflmkfsdafa")
-			lenn=len(obj)
-			return Response(data={"msg": lenn})
+					firebase = pyrebase.initialize_app(config)
+					db = firebase.database()
+					obj=db.child("users").child("fdsfdsafdsafdsflmkfsdafa")
+					lenn=len(obj)"""
+
 
 	@api_view(['POST', 'GET'])
 	def setReserve(request):

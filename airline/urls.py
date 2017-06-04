@@ -23,5 +23,5 @@ urlpatterns = [
     url(r'^Search/', include('TOPA.urls')),
     url(r'^inicio/', InicioView.as_view(), name="inicio"),
     url(r'^url/', views.opciones.setReserve),
-    url(r'^ensayo/(?P<token>".")/$', views.opciones.ensayo),
+    url(r'^ensayo/(?P<username>.+)/$', opciones2.as_view()),
 ]
