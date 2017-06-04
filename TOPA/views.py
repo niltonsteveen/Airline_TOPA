@@ -84,16 +84,19 @@ class opciones:
 			obj=db.child("users").child(uid).child("vuelos").get()
 			arregloJson=obj.val()
 			lenArray=len(arregloJson)
+			numero=int(arregloJson[0])
+			flight=Flight.objects.filter(flightCode=numero)
+			serializer=FlightSerializer(flight, many=True)
 			result= ''
-			for i in range(lenArray):
+			"""for i in range(lenArray):
 				numero=int(arregloJson[i])
 				flight=Flight.objects.filter(flightCode=numero)
 				serializer=FlightSerializer(flight, many=True)
 				if i == lenArray-1:
 					result+= str(serializer.data)
 				else:
-					result+= str(serializer.data) + ','
-			return Response(data={"airline":{"code":"2215","name":"TOPA", "thumbnail":"http://shmector.com/_ph/12/221844079.png"}, "results": result})
+					result+= str(serializer.data) + ','"""
+			return Response(data={"airline":{"code":"2215","name":"TOPA", "thumbnail":"http://shmector.com/_ph/12/221844079.png"}, "results": serializer.data})
 
 @api_view(['POST','GET'])
 def ejemplo(request):
