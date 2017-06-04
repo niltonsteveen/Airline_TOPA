@@ -85,15 +85,15 @@ class opciones:
 			arregloJson=obj.val()
 			lenArray=len(arregloJson)
 			result= '['
-			for i in arregloJson:
+			for i in range(lenArray):
 				numero=int(arregloJson[i])
 				flight=Flight.objects.filter(flightCode=numero)
 				serializer=FlightSerializer(flight)
 				if i == lenArray-1:
-					result=result + serializer.data
+					result+= serializer.data
 				else:
-					result=result + serializer.data + ','
-			result=result+']'
+					result+= serializer.data + ','
+			result+=']'
 			return Response(data={"airline":{"code":"2215","name":"TOPA", "thumbnail":"http://shmector.com/_ph/12/221844079.png"}, "results": result})
 
 @api_view(['POST','GET'])
