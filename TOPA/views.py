@@ -28,14 +28,6 @@ class opciones:
 	def getCredencial():
 		return default_app
 
-
-class opciones2(generics.ListAPIView):
-	serializer_class = FlightSerializer
-	def get_queryset(self):
-		token=self.request.query_params.get('token', None)
-		return Response(data={"msg": "hola"})
-
-
 	@api_view(['POST', 'GET'])
 	def setReserve(request):
 		if request.method == 'POST':
@@ -66,6 +58,15 @@ class opciones2(generics.ListAPIView):
 			return Response(data={"message":msg})
 		elif request.method == 'GET' :
 			return Response(data={"msg":"se hizo una petición get ."})
+
+class opciones2(generics.ListAPIView):
+	serializer_class = FlightSerializer
+	def get_queryset(self):
+		token=self.request.query_params.get('token', None)
+		return Response(data={"msg": "hola"})
+
+
+
 
 @api_view(['POST','GET'])
 def ejemplo(request):
