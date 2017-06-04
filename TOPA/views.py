@@ -15,6 +15,8 @@ from firebase_admin import auth
 import os.path
 from pyrebase import pyrebase
 from rest_framework import generics
+import json
+
 # Create your views here.
 
 class InicioView(TemplateView):
@@ -60,10 +62,17 @@ class opciones:
 			return Response(data={"msg":"se hizo una petición get ."})
 
 	@api_view(['GET'])
-	def ensayo(request, token):
+	def getReserves(request, token):
 		if request.method == 'GET':
-			module_dir = os.path.dirname(__file__)  # get current directory
-			file_path = os.path.join(module_dir, 'serviceAccount.json')
+			if(opciones.default_app == None):
+				module_dir = os.path.dirname(__file__)  # get current directory
+				file_path = os.path.join(module_dir, 'serviceAccount.json')
+				cred = credentials.Certificate(file_path)
+				dfl=firebase_admin.initialize_app(cred)
+				opciones.setCredencial(dfl)
+			# id_token comes from the client app (shown above)
+			decoded_token = auth.verify_id_token(token)
+			uid = decoded_token['uid']
 			config = {
 				"apiKey": "AIzaSyAgpcndOPW3Yk7pprbxZyQp1Oq_ln9Y0vw",
 				"authDomain": "python-project-de5a9.firebaseapp.com",
@@ -72,9 +81,11 @@ class opciones:
 			}
 			firebase = pyrebase.initialize_app(config)
 			db = firebase.database()
-			obj=db.child("users").child("fdsfdsafdsafdsflmkfsdafa").get()
-			dd=obj.val()
-			return Response(data={"msg":dd})
+			obj=db.child("users").child(uid).get()
+			arregloJson=obj.val()
+			arreglo=json.loads(arregloJson)
+			datos=arreglo['vuelos'][0]
+			return Response(data={"msg":datos})
 
 @api_view(['POST','GET'])
 def ejemplo(request):
