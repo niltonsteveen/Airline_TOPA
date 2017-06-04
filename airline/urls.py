@@ -22,5 +22,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^Search/', include('TOPA.urls')),
     url(r'^inicio/', InicioView.as_view(), name="inicio"),
-    url(r'^url/', views.setReserve),
+    url(r'^url/', views.opciones.setReserve),
 ]

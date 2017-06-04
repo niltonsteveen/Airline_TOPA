@@ -18,22 +18,36 @@ import os.path
 class InicioView(TemplateView):
 	template_name="web/index.html"
 
-@api_view(['POST'])
-def setReserve(request):
-	module_dir = os.path.dirname(__file__)  # get current directory
-	file_path = os.path.join(module_dir, 'serviceAccount.json')
-	cred = credentials.Certificate(file_path)
-	default_app=firebase_admin.initialize_app(cred)
-	if request.method == 'POST':
-		data=request.data
-		flightCode=data['flightCode']
-		passengers=data['passengers']
-		token=data['token']
-		# id_token comes from the client app (shown above)
-		decoded_token = auth.verify_id_token(token)
-		uid = decoded_token['uid']
-		email=decoded_token['email']
-		return Response(data={"uid":email})
+class opciones:
+
+	default_app = None;
+
+	def setCredencial(self, arg):
+		self.default_app=arg
+
+	def getCredencial():
+		return default_app
+
+	@api_view(['POST', 'GET'])
+	def setReserve(self, request):
+		if request.method == 'POST':
+			if(self.default_app == None)
+				module_dir = os.path.dirname(__file__)  # get current directory
+				file_path = os.path.join(module_dir, 'serviceAccount.json')
+				cred = credentials.Certificate(file_path)
+				dfl=firebase_admin.initialize_app(cred)
+				self.setCredencial(dfl)
+				data=request.data
+				flightCode=data['flightCode']
+				passengers=data['passengers']
+				token=data['token']
+				# id_token comes from the client app (shown above)
+				decoded_token = auth.verify_id_token(token)
+				uid = decoded_token['uid']
+				email=decoded_token['email']
+				return Response(data={"uid":email})
+		elif request.method == 'GET'
+			return Response(data={"msg":"se hizo una petición get"})
 
 @api_view(['POST','GET'])
 def ejemplo(request):
