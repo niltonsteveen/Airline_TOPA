@@ -59,14 +59,22 @@ class opciones:
 		elif request.method == 'GET' :
 			return Response(data={"msg":"se hizo una petición get ."})
 
-class opciones2(generics.ListAPIView):
-	serializer_class = FlightSerializer
-	def get_queryset(self):
-		token=self.request.query_params.get('token', None)
-		return Response(data={"msg": "hola"})
-
-
-
+	@api_view(['GET'])
+	def ensayo(request, token):
+		if request.method == 'GET':
+			module_dir = os.path.dirname(__file__)  # get current directory
+			file_path = os.path.join(module_dir, 'serviceAccount.json')
+			config = {
+				"apiKey": "AIzaSyAgpcndOPW3Yk7pprbxZyQp1Oq_ln9Y0vw",
+				"authDomain": "python-project-de5a9.firebaseapp.com",
+				"databaseURL": "https://python-project-de5a9.firebaseio.com/",
+				"storageBucket": "python-project-de5a9.appspot.com"
+			}
+			firebase = pyrebase.initialize_app(config)
+			db = firebase.database()
+			obj=db.child("users").child("fdsfdsafdsafdsflmkfsdafa")
+			lenn=len(obj)
+			return Response(data={"msg":lenn})
 
 @api_view(['POST','GET'])
 def ejemplo(request):
