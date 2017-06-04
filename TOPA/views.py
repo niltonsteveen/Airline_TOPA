@@ -83,8 +83,17 @@ class opciones:
 			db = firebase.database()
 			obj=db.child("users").child(uid).child("vuelos").get()
 			arregloJson=obj.val()
-			datos=len(arregloJson)
-			return Response(data={"msg":datos})
+			lenArray=len(arregloJson)
+			result= '['
+			for i in arregloJson:
+				flight=Flight.objects.filter(flightCode=arregloJson[i])
+				serializer=FlightSerializer(flight)
+				if i == lenArray-1:
+					result=result + serializer.data
+				else:
+					result=result + serializer.data + ','
+			result=result+']'
+			return Response(data={"airline":{"code":"2215","name":"TOPA", "thumbnail":"http://shmector.com/_ph/12/221844079.png"}, "results": result})
 
 @api_view(['POST','GET'])
 def ejemplo(request):
