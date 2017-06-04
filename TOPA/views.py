@@ -29,7 +29,7 @@ class opciones:
 		return default_app
 
 
-class opciones2(generics.ListAPIView)
+class opciones2(generics.ListAPIView):
 	serializer_class = FlightSerializer
 	def get_queryset(self):
 		token=self.request.query_params.get('token', None)
