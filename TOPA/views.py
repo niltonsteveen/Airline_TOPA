@@ -83,9 +83,9 @@ class opciones:
 			db = firebase.database()
 			obj=db.child("users").child(uid).get()
 			arregloJson=obj.val()
-			arreglo=json.loads(arregloJson)
-			datos=arreglo['vuelos'][0]
-			return Response(data={"msg":datos})
+			#arreglo=json.loads(arregloJson)
+			#datos=arreglo['vuelos'][0]
+			return Response(data={"msg":arregloJson})
 
 @api_view(['POST','GET'])
 def ejemplo(request):
