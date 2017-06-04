@@ -40,7 +40,7 @@ class opciones:
 		return default_app
 
 	def setConfigDatabase():
-		opciones.firebase = pyrebase.initialize_app(config)
+		opciones.firebase = pyrebase.initialize_app(opciones.config)
 
 	def setDataBase():
 		opciones.db=opciones.firebase.database()
