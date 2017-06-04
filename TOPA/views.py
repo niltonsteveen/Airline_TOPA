@@ -34,12 +34,10 @@ class opciones:
 			module_dir = os.path.dirname(__file__)  # get current directory
 			file_path = os.path.join(module_dir, 'serviceAccount.json')
 			config = {
-				{
 				"apiKey": "AIzaSyAgpcndOPW3Yk7pprbxZyQp1Oq_ln9Y0vw",
 				"authDomain": "python-project-de5a9.firebaseapp.com",
 				"databaseURL": "https://python-project-de5a9.firebaseio.com/",
-				"storageBucket": "python-project-de5a9.appspot.com"
-				}
+				"storageBucket": "python-project-de5a9.appspot.com"				
 			}
 			firebase = pyrebase.initialize_app(config)
 			db = firebase.database()
