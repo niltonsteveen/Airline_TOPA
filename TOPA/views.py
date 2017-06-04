@@ -13,7 +13,7 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import auth
 import os.path
-import pyrebase
+from pyrebase import pyrebase
 # Create your views here.
 
 class InicioView(TemplateView):
