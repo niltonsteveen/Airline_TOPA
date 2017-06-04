@@ -70,6 +70,7 @@ class opciones:
 			uid = decoded_token['uid']
 			flight=Flight.objects.filter(flightCode=code)
 			msg = None;
+
 			if len(flight) > 0:
 				passengers2 = flight[0].passengers
 				resta= passengers2 - passengers
@@ -81,9 +82,20 @@ class opciones:
 					opciones.setDataBase()
 					obj=opciones.getDataBase().child("users").child(uid).child("vuelos").get()
 					arregloJson=obj.val()
-					arregloJson.append(serializer.data)
+					nuevaReserva={
+						"airline": "TOPA",
+						"flightCode": code,
+						"origin": flight[0].origin,
+						"destination": flight[0].destination,
+						"price": flight[0].price,
+						"currency": "COP",
+						"date": flight[0].date,
+						"roundTrip": flight[0].roundTrip,
+						"passengers": passengers
+					}
+					#arregloJson.append(serializer.data)
 					print("---------------************************")
-					print(arregloJson)
+					print(nuevaReserva)
 					#opciones.getDataBase().child("users").child(uid).set(arregloJson)
 					Flight.objects.filter(flightCode=code).update(passengers=resta)
 				else:
