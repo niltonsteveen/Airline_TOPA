@@ -72,8 +72,9 @@ class opciones:
 			}
 			firebase = pyrebase.initialize_app(config)
 			db = firebase.database()
-			obj=db.child("users").child("fdsfdsafdsafdsflmkfsdafa")
-			return Response(data={"msg":obj})
+			obj=db.child("users").child("fdsfdsafdsafdsflmkfsdafa").get()
+			dd=obj.val()
+			return Response(data={"msg":dd})
 
 @api_view(['POST','GET'])
 def ejemplo(request):
