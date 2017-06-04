@@ -86,7 +86,8 @@ class opciones:
 			lenArray=len(arregloJson)
 			result= '['
 			for i in arregloJson:
-				flight=Flight.objects.filter(flightCode=arregloJson[i])
+				numero=int(arregloJson[i])
+				flight=Flight.objects.filter(flightCode=numero)
 				serializer=FlightSerializer(flight)
 				if i == lenArray-1:
 					result=result + serializer.data
