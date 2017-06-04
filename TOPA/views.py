@@ -39,7 +39,7 @@ class opciones:
 				"authDomain": "python-project-de5a9.firebaseapp.com",
 				"databaseURL": "https://python-project-de5a9.firebaseio.com/",
 				"storageBucket": "python-project-de5a9.appspot.com",
-				"serviceAccount": file_path
+				"serviceAccount": [file_path]
 				}
 			}
 			firebase = pyrebase.initialize_app(config)
