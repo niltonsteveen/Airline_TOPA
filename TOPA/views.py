@@ -81,7 +81,7 @@ class opciones:
 			}
 			firebase = pyrebase.initialize_app(config)
 			db = firebase.database()
-			obj=db.child("users").child(uid).get()
+			obj=db.child("users").child(uid).child("vuelos").get()
 			arregloJson=obj.val()
 			arreglo=json.loads(arregloJson)
 			#datos=arreglo['vuelos'][0]
