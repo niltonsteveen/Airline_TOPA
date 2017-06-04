@@ -18,32 +18,13 @@ import os.path
 class InicioView(TemplateView):
 	template_name="web/index.html"
 
-class Singleton(object):
-	instance = None
-	@classmethod
-	def Instance(cls):
-		if cls.instance==None:
-			cls.instance = Singleton()
-		return cls.instance
-
-	def __init__(self):
-		if self.instance != None:
-			return True
-		else:
-			return False
-
-	def setCredential(self, arg):
-		self.default_app=arg
-
-
-@api_view(['POST', 'GET'])
+@api_view(['POST'])
 def setReserve(request):
 	if request.method == 'POST':
 		module_dir = os.path.dirname(__file__)  # get current directory
 		file_path = os.path.join(module_dir, 'serviceAccount.json')
 		cred = credentials.Certificate(file_path)
-		if Singleton.__init__() == False:
-			default_app=Singleton.Instance().setCredential(firebase_admin.initialize_app(cred))
+		default_app=firebase_admin.initialize_app(cred)
 		data=request.data
 		flightCode=data['flightCode']
 		passengers=data['passengers']
@@ -53,10 +34,6 @@ def setReserve(request):
 		uid = decoded_token['uid']
 		email=decoded_token['email']
 		return Response(data={"uid":email})
-	elif request.method == 'GET':
-		flights = Flight.objects.all()
-		serializer = FlightSerializer(flights, many=True)
-		return Response(serializer.data)
 
 @api_view(['POST','GET'])
 def ejemplo(request):
