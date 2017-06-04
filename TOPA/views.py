@@ -47,7 +47,7 @@ class opciones:
 				email=decoded_token['email']
 				return Response(data={"uid":email})
 		elif request.method == 'GET' :
-			return Response(data={"msg":"se hizo una petición get"})
+			return Response(data={"msg":"se hizo una petición get ."})
 
 @api_view(['POST','GET'])
 def ejemplo(request):
