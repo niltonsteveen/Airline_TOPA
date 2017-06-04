@@ -36,25 +36,27 @@ class Singleton(object):
 		self.default_app=arg
 
 
-@api_view(['POST'])
+@api_view(['POST', 'GET'])
 def setReserve(request):
 	if request.method == 'POST':
 		module_dir = os.path.dirname(__file__)  # get current directory
 		file_path = os.path.join(module_dir, 'serviceAccount.json')
 		cred = credentials.Certificate(file_path)
 		if Singleton.__init__() == False:
-			obj=Singleton.Instance().setCredential(firebase_admin.initialize_app(cred))
+			default_app=Singleton.Instance().setCredential(firebase_admin.initialize_app(cred))
 		data=request.data
 		flightCode=data['flightCode']
 		passengers=data['passengers']
 		token=data['token']
-		token2=data['token']
 		# id_token comes from the client app (shown above)
 		decoded_token = auth.verify_id_token(token)
 		uid = decoded_token['uid']
-		email1=decoded_token['email']
 		email=decoded_token['email']
 		return Response(data={"uid":email})
+	elif request.method == 'GET':
+		flights = Flight.objects.all()
+		serializer = FlightSerializer(flights, many=True)
+		return Response(serializer.data)
 
 @api_view(['POST','GET'])
 def ejemplo(request):
