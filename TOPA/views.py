@@ -90,9 +90,9 @@ class opciones:
 				flight=Flight.objects.filter(flightCode=numero)
 				serializer=FlightSerializer(flight, many=True)
 				if i == lenArray-1:
-					result+= serializer.data
+					result+= str(serializer.data)
 				else:
-					result+= serializer.data + ','
+					result+= str(serializer.data) + ','
 			result+=']'
 			return Response(data={"airline":{"code":"2215","name":"TOPA", "thumbnail":"http://shmector.com/_ph/12/221844079.png"}, "results": result})
 
