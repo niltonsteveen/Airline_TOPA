@@ -37,15 +37,15 @@ class opciones:
 				cred = credentials.Certificate(file_path)
 				dfl=firebase_admin.initialize_app(cred)
 				opciones.setCredencial(dfl)
-				data=request.data
-				flightCode=data['flightCode']
-				passengers=data['passengers']
-				token=data['token']
-				# id_token comes from the client app (shown above)
-				decoded_token = auth.verify_id_token(token)
-				uid = decoded_token['uid']
-				email=decoded_token['email']
-				return Response(data={"uid":email})
+			data=request.data
+			flightCode=data['flightCode']
+			passengers=data['passengers']
+			token=data['token']
+			# id_token comes from the client app (shown above)
+			decoded_token = auth.verify_id_token(token)
+			uid = decoded_token['uid']
+			email=decoded_token['email']
+			return Response(data={"uid":email})
 		elif request.method == 'GET' :
 			return Response(data={"msg":"se hizo una petición get ."})
 
