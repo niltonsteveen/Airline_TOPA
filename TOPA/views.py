@@ -18,14 +18,32 @@ import os.path
 class InicioView(TemplateView):
 	template_name="web/index.html"
 
+class Singleton(object):
+	instance = None
+	@classmethod
+	def Instance(cls):
+		if cls.instance=None:
+			cls.instance = Singleton()
+		return cls.instance
+
+	def __init__(self):
+		if self.instance != None:
+			return True
+		else:
+			return False
+
+	def setCredential(self, arg):
+		self.default_app=arg
+
+
 @api_view(['POST', 'GET'])
 def setReserve(request):
-
 	if request.method == 'POST':
 		module_dir = os.path.dirname(__file__)  # get current directory
 		file_path = os.path.join(module_dir, 'serviceAccount.json')
 		cred = credentials.Certificate(file_path)
-		default_app = firebase_admin.initialize_app(cred)
+		if Singleton.__init__() == False:
+			obj=Singleton.Instance().setCredential(firebase_admin.initialize_app(cred))
 		data=request.data
 		flightCode=data['flightCode']
 		passengers=data['passengers']
