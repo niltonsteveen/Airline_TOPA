@@ -60,8 +60,8 @@ class opciones:
 
 	@api_view(['POST', 'GET'])
 	def setReserve(request):
-		if request.method == 'POST':
-			try:
+		try:
+			if request.method == 'POST':
 				if(opciones.default_app == None):
 					opciones.loadService()
 				data=request.data
@@ -105,11 +105,10 @@ class opciones:
 				else:
 					msg = 'NF'
 				return Response(data={"message":msg})
-			except ValueError:
-				return Response(data={"message":"El token es invalido, por favor autentiquese con un correo correcto"})
 			elif request.method == 'GET' :
 				return Response(data={"msg":"se hizo una petición get ."})
-
+		except ValueError:
+			return Response(data={"msg":"El token ingresado no es válido, ingrese uno correcto"})
 
 
 	@api_view(['GET'])
