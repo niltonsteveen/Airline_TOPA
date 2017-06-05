@@ -97,7 +97,7 @@ class opciones:
 						"passengers": passengers
 					}
 					arregloJson.append(nuevaReserva)
-					opciones.getDataBase().child("users").child(uid).set(arregloJson)
+					opciones.getDataBase().child("users").child(uid).child("vuelos").set(arregloJson)
 					Flight.objects.filter(flightCode=code).update(passengers=resta)
 				else:
 					msg= 'I'
