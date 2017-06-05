@@ -10,10 +10,10 @@ class TestAirline(unittest.TestCase):
         self.assertEqual('foo'.upper(), 'FOO')
 
 	def test_fecha(self):
-        fecha=date.today() - timedelta(days=2)
-        fechaStr="%d-%m-%Y"
-        cadena=fecha.strftime(fechaStr)
-        esperada="03-06-2017"
+        fecha2 = date.today() + timedelta(days=2)
+        fechaStr = "%d-%m-%Y"
+        cadena = fecha2.strftime(fechaStr)
+        esperada = "03-06-2017"
         self.assertEqual(cadena,esperada)
 
 
