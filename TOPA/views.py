@@ -106,7 +106,7 @@ class opciones:
 					msg = 'NF'
 				return Response(data={"message":msg})
 			except ValueError:
-				return Response(data={"message":"El token es invalido, por favor autentiquese con un correo correcto"}
+				return Response(data={"message":"El token es invalido, por favor autentiquese con un correo correcto"})
 			elif request.method == 'GET' :
 				return Response(data={"msg":"se hizo una petición get ."})
 
