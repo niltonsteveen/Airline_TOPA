@@ -84,7 +84,7 @@ class opciones:
 						opciones.setConfigDatabase()
 						opciones.setDataBase()
 						obj=opciones.getDataBase().child("users").child(uid).child("vuelos").get()
-
+						print(obj)
 						if obj != None:
 							print("-----------------entro------------------")
 							arregloJson=obj.val()
