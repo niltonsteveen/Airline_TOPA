@@ -86,6 +86,7 @@ class opciones:
 						obj=opciones.getDataBase().child("users").child(uid).child("vuelos").get()
 
 						if obj != None:
+							print("-----------------entro------------------")
 							arregloJson=obj.val()
 							fecha=flight[0].date
 							fechaStr="%H:%M %d-%m-%Y"
