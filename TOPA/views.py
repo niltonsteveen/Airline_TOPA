@@ -84,20 +84,38 @@ class opciones:
 						opciones.setConfigDatabase()
 						opciones.setDataBase()
 						obj=opciones.getDataBase().child("users").child(uid).child("vuelos").get()
-						arregloJson=obj.val()
-						fecha=flight[0].date
-						fechaStr="%H:%M %d-%m-%Y"
-						cadena=fecha.strftime(fechaStr)
-						nuevaReserva={
-							"flightCode": code,
-							"origin": flight[0].origin,
-							"destination": flight[0].destination,
-							"price": flight[0].price,
-							"currency": "COP",
-							"date": cadena,
-							"passengers": passengers
-						}
-						arregloJson.append(nuevaReserva)
+
+						if obj != None:
+							arregloJson=obj.val()
+							fecha=flight[0].date
+							fechaStr="%H:%M %d-%m-%Y"
+							cadena=fecha.strftime(fechaStr)
+							nuevaReserva={
+								"flightCode": code,
+								"origin": flight[0].origin,
+								"destination": flight[0].destination,
+								"price": flight[0].price,
+								"currency": "COP",
+								"date": cadena,
+								"passengers": passengers
+							}
+							arregloJson.append(nuevaReserva)
+						else:
+							opciones.getDataBase().child("users").child(uid).child("vuelos")
+							arregloJson=None
+							fecha=flight[0].date
+							fechaStr="%H:%M %d-%m-%Y"
+							cadena=fecha.strftime(fechaStr)
+							nuevaReserva={
+								"flightCode": code,
+								"origin": flight[0].origin,
+								"destination": flight[0].destination,
+								"price": flight[0].price,
+								"currency": "COP",
+								"date": cadena,
+								"passengers": passengers
+							}
+							arregloJson.append(nuevaReserva)
 						opciones.getDataBase().child("users").child(uid).child("vuelos").set(arregloJson)
 						Flight.objects.filter(flightCode=code).update(passengers=resta)
 					else:
@@ -113,17 +131,20 @@ class opciones:
 
 	@api_view(['GET'])
 	def getReserves(request, token):
-		if request.method == 'GET':
-			if(opciones.default_app == None):
-				opciones.loadService()
-			# id_token comes from the client app (shown above)
-			decoded_token = auth.verify_id_token(token)
-			uid = decoded_token['uid']
-			opciones.setConfigDatabase()
-			opciones.setDataBase()
-			obj=opciones.getDataBase().child("users").child(uid).child("vuelos").get()
-			arregloJson=obj.val()
-			return Response(data={"airline":{"code":"2215","name":"TOPA", "thumbnail":"http://shmector.com/_ph/12/221844079.png"}, "results": arregloJson})
+		try:
+			if request.method == 'GET':
+				if(opciones.default_app == None):
+					opciones.loadService()
+				# id_token comes from the client app (shown above)
+				decoded_token = auth.verify_id_token(token)
+				uid = decoded_token['uid']
+				opciones.setConfigDatabase()
+				opciones.setDataBase()
+				obj=opciones.getDataBase().child("users").child(uid).child("vuelos").get()
+				arregloJson=obj.val()
+				return Response(data={"airline":{"code":"2215","name":"TOPA", "thumbnail":"http://shmector.com/_ph/12/221844079.png"}, "results": arregloJson})
+		except ValueError:
+			return Response(data={"msg":"El token ingresado no es válido, ingrese uno correcto"})
 
 @api_view(['POST','GET'])
 def allFlights(request):
