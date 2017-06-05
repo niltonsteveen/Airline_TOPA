@@ -84,39 +84,20 @@ class opciones:
 						opciones.setConfigDatabase()
 						opciones.setDataBase()
 						obj=opciones.getDataBase().child("users").child(uid).child("vuelos").get()
-						print(obj)
-						if obj != None:
-							print("-----------------entro------------------")
-							arregloJson=obj.val()
-							fecha=flight[0].date
-							fechaStr="%H:%M %d-%m-%Y"
-							cadena=fecha.strftime(fechaStr)
-							nuevaReserva={
-								"flightCode": code,
-								"origin": flight[0].origin,
-								"destination": flight[0].destination,
-								"price": flight[0].price,
-								"currency": "COP",
-								"date": cadena,
-								"passengers": passengers
-							}
-							arregloJson.append(nuevaReserva)
-						else:
-							opciones.getDataBase().child("users").child(uid).child("vuelos")
-							arregloJson=None
-							fecha=flight[0].date
-							fechaStr="%H:%M %d-%m-%Y"
-							cadena=fecha.strftime(fechaStr)
-							nuevaReserva={
-								"flightCode": code,
-								"origin": flight[0].origin,
-								"destination": flight[0].destination,
-								"price": flight[0].price,
-								"currency": "COP",
-								"date": cadena,
-								"passengers": passengers
-							}
-							arregloJson.append(nuevaReserva)
+						arregloJson=obj.val()
+						fecha=flight[0].date
+						fechaStr="%H:%M %d-%m-%Y"
+						cadena=fecha.strftime(fechaStr)
+						nuevaReserva={
+							"flightCode": code,
+							"origin": flight[0].origin,
+							"destination": flight[0].destination,
+							"price": flight[0].price,
+							"currency": "COP",
+							"date": cadena,
+							"passengers": passengers
+						}
+						arregloJson.append(nuevaReserva)
 						opciones.getDataBase().child("users").child(uid).child("vuelos").set(arregloJson)
 						Flight.objects.filter(flightCode=code).update(passengers=resta)
 					else:
@@ -128,7 +109,24 @@ class opciones:
 				return Response(data={"msg":"se hizo una petición get ."})
 		except ValueError:
 			return Response(data={"msg":"El token ingresado no es válido, ingrese uno correcto"})
-
+		except AttributeError:
+			obj=opciones.getDataBase().child("users").child(uid).child("vuelos")
+			arregloJson=None
+			fecha=flight[0].date
+			fechaStr="%H:%M %d-%m-%Y"
+			cadena=fecha.strftime(fechaStr)
+			nuevaReserva={
+				"flightCode": code,
+				"origin": flight[0].origin,
+				"destination": flight[0].destination,
+				"price": flight[0].price,
+				"currency": "COP",
+				"date": cadena,
+				"passengers": passengers
+			}
+			arregloJson.append(nuevaReserva)
+			opciones.getDataBase().child("users").child(uid).child("vuelos").set(arregloJson)
+			Flight.objects.filter(flightCode=code).update(passengers=resta)
 
 	@api_view(['GET'])
 	def getReserves(request, token):
