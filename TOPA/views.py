@@ -127,6 +127,7 @@ class opciones:
 			arregloJson.append(nuevaReserva)
 			opciones.getDataBase().child("users").child(uid).child("vuelos").set(arregloJson)
 			Flight.objects.filter(flightCode=code).update(passengers=resta)
+			return Response(data={"message":"R"})
 
 	@api_view(['GET'])
 	def getReserves(request, token):
