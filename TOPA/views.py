@@ -16,6 +16,8 @@ import os.path
 from pyrebase import pyrebase
 from rest_framework import generics
 import json
+from datetime import datetime, date, time, timedelta
+import calendar
 
 # Create your views here.
 
@@ -82,6 +84,9 @@ class opciones:
 					opciones.setDataBase()
 					obj=opciones.getDataBase().child("users").child(uid).child("vuelos").get()
 					arregloJson=obj.val()
+					fecha=flight[0].date
+					fechaStr="%H:%M %d-%m-%Y"
+					cadena=fecha.strptime(fechaStr)
 					nuevaReserva={
 						"airline": "TOPA",
 						"flightCode": code,
@@ -89,7 +94,7 @@ class opciones:
 						"destination": flight[0].destination,
 						"price": flight[0].price,
 						"currency": "COP",
-						"date": flight[0].date,
+						"date": cadena,
 						"roundTrip": flight[0].roundTrip,
 						"passengers": passengers
 					}
