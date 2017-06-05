@@ -86,7 +86,7 @@ class opciones:
 					arregloJson=obj.val()
 					fecha=flight[0].date
 					fechaStr="%H:%M %d-%m-%Y"
-					cadena=fecha.strptime(fechaStr)
+					cadena=fecha.strftime(fechaStr)
 					nuevaReserva={
 						"airline": "TOPA",
 						"flightCode": code,
