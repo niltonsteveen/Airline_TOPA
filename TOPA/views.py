@@ -61,51 +61,54 @@ class opciones:
 	@api_view(['POST', 'GET'])
 	def setReserve(request):
 		if request.method == 'POST':
-			if(opciones.default_app == None):
-				opciones.loadService()
-			data=request.data
-			code=data['flightCode']
-			passengers=data['passengers']
-			token=data['token']
-			# id_token comes from the client app (shown above)
-			decoded_token = auth.verify_id_token(token)
-			uid = decoded_token['uid']
-			flight=Flight.objects.filter(flightCode=code)
-			msg = None;
+			try:
+				if(opciones.default_app == None):
+					opciones.loadService()
+				data=request.data
+				code=data['flightCode']
+				passengers=data['passengers']
+				token=data['token']
+				# id_token comes from the client app (shown above)
+				decoded_token = auth.verify_id_token(token)
+				uid = decoded_token['uid']
+				flight=Flight.objects.filter(flightCode=code)
+				msg = None;
 
-			if len(flight) > 0:
-				passengers2 = flight[0].passengers
-				resta= passengers2 - passengers
-				if resta >= 0:
-					msg='R'
-					flight[0].passengers=passengers
-					serializer=FlightSerializer(flight, many=True)
-					opciones.setConfigDatabase()
-					opciones.setDataBase()
-					obj=opciones.getDataBase().child("users").child(uid).child("vuelos").get()
-					arregloJson=obj.val()
-					fecha=flight[0].date
-					fechaStr="%H:%M %d-%m-%Y"
-					cadena=fecha.strftime(fechaStr)
-					nuevaReserva={
-						"flightCode": code,
-						"origin": flight[0].origin,
-						"destination": flight[0].destination,
-						"price": flight[0].price,
-						"currency": "COP",
-						"date": cadena,
-						"passengers": passengers
-					}
-					arregloJson.append(nuevaReserva)
-					opciones.getDataBase().child("users").child(uid).child("vuelos").set(arregloJson)
-					Flight.objects.filter(flightCode=code).update(passengers=resta)
+				if len(flight) > 0:
+					passengers2 = flight[0].passengers
+					resta= passengers2 - passengers
+					if resta >= 0:
+						msg='R'
+						flight[0].passengers=passengers
+						serializer=FlightSerializer(flight, many=True)
+						opciones.setConfigDatabase()
+						opciones.setDataBase()
+						obj=opciones.getDataBase().child("users").child(uid).child("vuelos").get()
+						arregloJson=obj.val()
+						fecha=flight[0].date
+						fechaStr="%H:%M %d-%m-%Y"
+						cadena=fecha.strftime(fechaStr)
+						nuevaReserva={
+							"flightCode": code,
+							"origin": flight[0].origin,
+							"destination": flight[0].destination,
+							"price": flight[0].price,
+							"currency": "COP",
+							"date": cadena,
+							"passengers": passengers
+						}
+						arregloJson.append(nuevaReserva)
+						opciones.getDataBase().child("users").child(uid).child("vuelos").set(arregloJson)
+						Flight.objects.filter(flightCode=code).update(passengers=resta)
+					else:
+						msg= 'I'
 				else:
-					msg= 'I'
-			else:
-				msg = 'NF'
-			return Response(data={"message":msg})
-		elif request.method == 'GET' :
-			return Response(data={"msg":"se hizo una petición get ."})
+					msg = 'NF'
+				return Response(data={"message":msg})
+			except ValueError:
+				return Response(data={"message":"El token es invalido, por favor autentiquese con un correo correcto"}
+			elif request.method == 'GET' :
+				return Response(data={"msg":"se hizo una petición get ."})
 
 
 
