@@ -111,7 +111,7 @@ class opciones:
 			return Response(data={"msg":"El token ingresado no es válido, ingrese uno correcto"})
 		except AttributeError:
 			obj=opciones.getDataBase().child("users").child(uid).child("vuelos")
-			arregloJson=None
+			arregloJson=[]
 			fecha=flight[0].date
 			fechaStr="%H:%M %d-%m-%Y"
 			cadena=fecha.strftime(fechaStr)
